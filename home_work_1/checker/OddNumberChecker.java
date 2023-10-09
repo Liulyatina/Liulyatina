@@ -1,4 +1,4 @@
-package Home_work_1.Checker;
+package home_work_1.checker;
 
 public class OddNumberChecker {
     public static void main(String[] args) {

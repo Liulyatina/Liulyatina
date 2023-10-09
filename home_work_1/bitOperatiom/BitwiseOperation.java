@@ -1,4 +1,4 @@
-package Home_work_1.Bitoperatiom;
+package home_work_1.bitOperatiom;
 
 import java.util.Scanner;
 
