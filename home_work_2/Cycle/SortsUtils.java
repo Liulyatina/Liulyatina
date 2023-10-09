@@ -1,4 +1,4 @@
-package home_work_2.Arrays;
+package home_work_2.Cycle;
 
 public class SortsUtils {
     public static void sort(int[] arr) {
