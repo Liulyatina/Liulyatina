@@ -1,6 +1,4 @@
-package home_work_2.Cycle;
-
-import home_work_2.Arrays.ArraysUtils;
+package home_work_2.Arrays;
 
 import java.util.Arrays;
 
