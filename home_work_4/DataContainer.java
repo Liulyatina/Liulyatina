@@ -1,74 +1,122 @@
 package home_work_4;
 
-import java.util.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Comparator;
 
-import static sun.jvm.hotspot.runtime.BasicObjectLock.size;
-
-public class DataContainer<T> {
+public class DataContainer<T extends Comparable<T>> {
     public T[] data;
-    private int size;
+    int size;
 
-    public DataContainer(T[] initialData) {
-        this.data = Arrays.copyOf(initialData, initialData.length);
+    public DataContainer(Class<T> clazz, int initialCapacity) {
+        data = (T[]) Array.newInstance(clazz, initialCapacity);
+        size = 0;
     }
+
+    public boolean delete(int index) {
+        if (index >= 0 && index < size) {
+            // Сдвигаем элементы справа от индекса на одну позицию влево
+            for (int i = index; i < size - 1; i++) {
+                data[i] = data[i + 1];
+            }
+            data[size - 1] = null; // Удаляем последний элемент
+            size--;
+            return true;
+        }
+        return false; // Возвращаем false, если индекс недопустим
+    }
+
+    public boolean delete(T item) {
+        if (item == null) {
+            return false; // Удаление null не допускается (пункт 8.1)
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (item.equals(data[i])) {
+
+                for (int j = i; j < size - 1; j++) {
+                    data[j] = data[j + 1];
+                }
+                data[size - 1] = null;
+                size--;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public int add(T item) {
         if (item == null) {
-            return -1;
+            return -1; // Вставка null не допускается
         }
-
-        if (size >= data.length) {
+        if (size < data.length) {
+            // Ищем последнюю заполненную позицию и вставляем элемент после нее
+            for (int i = size - 1; i >= 0; i--) {
+                if (data[i] != null) {
+                    data[i + 1] = item;
+                    size++;
+                    return i + 1;
+                }
+            }
+        } else {
+            // Если массив заполнен, увеличиваем его размер с использованием Arrays.copyOf
             data = Arrays.copyOf(data, data.length * 2);
+            data[size] = item;
+            size++;
+            return size - 1;
         }
-
-        data[size] = item;
+        // Если массив был пуст, добавляем элемент в начало
+        data[0] = item;
         size++;
+        return 0;
+    }
 
-        return size - 1;
+    private int findEmptyIndex() {
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == null) {
+                return i;
+            }
+        }
+        return size;
+    }
+
+    public void sort(Comparator<T> comparator) {
+        Arrays.sort(data, 0, size, comparator);
     }
 
     public T get(int index) {
         if (index >= 0 && index < size()) {
-            System.out.println("Error");
+            return data[index];
         }
-        return data[index]; // You can choose how to handle invalid index
+        return null;
     }
-    public T[] getItems(){
+
+    public T[] getItems() {
         return Arrays.copyOf(data, size);
     }
+
     public int size() {
         return size;
+    }
+    public static <E extends Comparable<E>> void sort(DataContainer<E> container) {
+        E[] data = container.getItems();
+        Arrays.sort(data);
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(Arrays.copyOf(data, size));
-    }
-    public static void main(String[] args) {
-
-        DataContainer<String> container = new DataContainer<>();
-        int index1 = container.add("Привет");
-        int index2 = container.add("Как дела");
-        int index3 = container.add("Работаю");
-        int index4 = container.add("Давай потом");
-        String text1 = container.get(index1);
-        String text2 = container.get(index2);
-        String text3 = container.get(index3);
-        String text4 = container.get(index4);
-
-        System.out.println(text1); // Привет
-        System.out.println(text2); // Как дела
-        System.out.println(text3); // Работаю
-        System.out.println(text4); // Давай потом
-
-        container.delete(text1);
-        System.out.println(container.get(index1)); // Как дела
-
-        container.sort(new StringLengthComparator()); // Сортируется по длине
-        System.out.println(container); // ["Привет", "Работаю", "Как дела", "Давай потом"]
-
-        container.sort(new StringAlphabeticComparator()); // Сортируется по алфавиту
-        System.out.println(container); // ["Давай потом", "Как дела", "Привет", "Работаю"]
-
+        StringBuilder result = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            if (i > 0) {
+                result.append(", ");
+            }
+            if (data[i] != null) {
+                result.append(data[i].toString());
+            }
+        }
+        result.append("]");
+        return result.toString();
     }
 }
