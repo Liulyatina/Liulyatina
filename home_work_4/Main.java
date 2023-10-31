@@ -1,19 +1,18 @@
 package home_work_4;
 
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
 
-        DataContainer<String> stringContainer = new DataContainer<>(String.class, 20);
-        stringContainer.add("i");
-        stringContainer.add("hello");
-        stringContainer.add("1");
-        stringContainer.add("Как домашка");
+        DataContainer<Integer> container = new DataContainer<>(Integer.class, 5);
 
-        // Сортировка строк по длине
-        stringContainer.sort(new StringLengthComparator());
-        System.out.println(Arrays.toString(stringContainer.getItems())); // ["i", "1", "hello", "Как домашка"]
+
+        container.add(1);
+        container.add(6);
+        container.add(3);
+        container.add(4);
+
+        DataContainer.sort(container);
+        System.out.println(container);
 
     }
 }

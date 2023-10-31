@@ -28,12 +28,11 @@ public class DataContainer<T extends Comparable<T>> {
 
     public boolean delete(T item) {
         if (item == null) {
-            return false; // Удаление null не допускается (пункт 8.1)
+            return false;
         }
 
         for (int i = 0; i < size; i++) {
             if (item.equals(data[i])) {
-
                 for (int j = i; j < size - 1; j++) {
                     data[j] = data[j + 1];
                 }
@@ -52,7 +51,6 @@ public class DataContainer<T extends Comparable<T>> {
             return -1; // Вставка null не допускается
         }
         if (size < data.length) {
-            // Ищем последнюю заполненную позицию и вставляем элемент после нее
             for (int i = size - 1; i >= 0; i--) {
                 if (data[i] != null) {
                     data[i + 1] = item;
@@ -61,13 +59,11 @@ public class DataContainer<T extends Comparable<T>> {
                 }
             }
         } else {
-            // Если массив заполнен, увеличиваем его размер с использованием Arrays.copyOf
             data = Arrays.copyOf(data, data.length * 2);
             data[size] = item;
             size++;
             return size - 1;
         }
-        // Если массив был пуст, добавляем элемент в начало
         data[0] = item;
         size++;
         return 0;
@@ -82,9 +78,10 @@ public class DataContainer<T extends Comparable<T>> {
         return size;
     }
 
-    public void sort(Comparator<T> comparator) {
+     public void sort(Comparator<T> comparator) {
         Arrays.sort(data, 0, size, comparator);
     }
+
 
     public T get(int index) {
         if (index >= 0 && index < size()) {
@@ -101,8 +98,13 @@ public class DataContainer<T extends Comparable<T>> {
         return size;
     }
     public static <E extends Comparable<E>> void sort(DataContainer<E> container) {
-        E[] data = container.getItems();
-        Arrays.sort(data);
+        E[] data = container.data;  // Получаем массив данных из контейнера
+        Arrays.sort(data, 0, container.size, null);
+    }
+
+    public static <E extends Comparable<E>> void sort(DataContainer<E> container, Comparator<? super E> comparator) {
+        E[] data = container.data;  // Получаем массив данных из контейнера
+        Arrays.sort(data, 0, container.size, comparator);
     }
 
     @Override
