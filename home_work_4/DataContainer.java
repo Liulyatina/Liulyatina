@@ -1,6 +1,5 @@
 package home_work_4;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -8,9 +7,9 @@ public class DataContainer<T extends Comparable<T>> {
     public T[] data;
     int size;
 
-    public DataContainer(Class<T> clazz, int initialCapacity) {
-        data = (T[]) Array.newInstance(clazz, initialCapacity);
-        size = 0;
+    public DataContainer(T[] initArr) {
+        this.data = initArr;
+
     }
 
     public boolean delete(int index) {
@@ -78,8 +77,51 @@ public class DataContainer<T extends Comparable<T>> {
         return size;
     }
 
-     public void sort(Comparator<T> comparator) {
-        Arrays.sort(data, 0, size, comparator);
+    public void sort(Comparator<T> cmp) {
+        T[] arr = data;
+
+        T temp;
+        boolean isSorted = false;
+
+        while (!isSorted) {
+            isSorted = true;
+
+            for (int i = 1; i < arr.length; i++) {
+                if (cmp.compare(arr[i], arr[i - 1]) < 0) {
+                    temp = arr[i];
+                    arr[i] = arr[i - 1];
+                    arr[i - 1] = temp;
+                    isSorted = false;
+                }
+            }
+        }
+    }
+
+    public static <T extends Comparable<T>> void sort(DataContainer<T> container){
+        sort(container, new ComparableComaparator());
+    }
+
+    public static <T extends Comparable<T>> void sort(DataContainer<T> container, Comparator<? super T> cmp){
+        T[] arr = container.data;
+
+        T temp;
+        boolean isSorted = false;
+
+        while (!isSorted) {
+
+            isSorted = true;
+
+            for (int i = 1; i < arr.length; i++) {
+                if (cmp.compare(arr[i], arr[i -1]) < 0) {
+
+                    temp = arr[i];
+                    arr[i] = arr[i - 1];
+                    arr[i - 1] = temp;
+
+                    isSorted = false;
+                }
+            }
+        }
     }
 
 
@@ -97,28 +139,30 @@ public class DataContainer<T extends Comparable<T>> {
     public int size() {
         return size;
     }
-    public static <E extends Comparable<E>> void sort(DataContainer<E> container) {
-        E[] data = container.data;  // Получаем массив данных из контейнера
-        Arrays.sort(data, 0, container.size, null);
-    }
 
-    public static <E extends Comparable<E>> void sort(DataContainer<E> container, Comparator<? super E> comparator) {
-        E[] data = container.data;  // Получаем массив данных из контейнера
-        Arrays.sort(data, 0, container.size, comparator);
-    }
 
-    @Override
     public String toString() {
         StringBuilder result = new StringBuilder("[");
+        boolean firstElement = true; // Флаг для отслеживания первого элемента
+
         for (int i = 0; i < size; i++) {
-            if (i > 0) {
-                result.append(", ");
-            }
             if (data[i] != null) {
+                if (!firstElement) {
+                    result.append(", ");
+                }
                 result.append(data[i].toString());
+                firstElement = false;
             }
         }
+
         result.append("]");
         return result.toString();
+    }
+
+    private static class ComparableComaparator implements Comparator<Comparable> {
+        @Override
+        public int compare(Comparable o1, Comparable o2) {
+            return o1.compareTo(o2);
+        }
     }
 }
