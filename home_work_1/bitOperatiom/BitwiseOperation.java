@@ -15,13 +15,19 @@ public class BitwiseOperation {
         // Пример двоичного представления чисел (8 бит):
         System.out.println("Первое число (в двоичной системе): " + Integer.toBinaryString(num1));
         System.out.println("Второе число (в двоичной системе): " + Integer.toBinaryString(num2));
+    }
 
-        // Побитовая операция И
-        int resultAnd = num1 & num2;
-        System.out.println("Результат операции И: " + Integer.toBinaryString(resultAnd));
+    public static String bitwiseOperatorAnd(int num1, int num2) { // Число one 12 (1100), число two 13 (1101)
 
-        // Побитовая операция ИЛИ
-        int resultOr = num1 | num2;
-        System.out.println("Результат операции ИЛИ: " + Integer.toBinaryString(resultOr));
+        int and = num1 & num2;
+        return Integer.toBinaryString(and);
+    }
+
+    public static String bitwiseOperatorOr(int num1, int num2) {
+
+        int or = num1 | num2;
+        return Integer.toBinaryString(or);
+
     }
 }
+

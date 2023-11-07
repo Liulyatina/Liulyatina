@@ -1,14 +1,11 @@
 package home_work_1.checker;
 
 public class DivisibilityChecker {
-    public static void main(String[] args) {
-        int dividend = 15;
-        int divisor = 5;
-
-        if (dividend % divisor == 0) {
-            System.out.println(dividend + " делится на " + divisor);
-        } else {
-            System.out.println(dividend + " не делится на " + divisor);
+    public static boolean divisionCheck(int dividend, int divider) {
+        if (divider == 0) {
+            throw new IllegalArgumentException("Divider cannot be 0");
         }
+
+        return (dividend % divider == 0);
     }
 }

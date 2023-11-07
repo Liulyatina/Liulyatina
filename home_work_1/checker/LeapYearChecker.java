@@ -2,14 +2,14 @@ package home_work_1.checker;
 
 public class LeapYearChecker {
     public static void main(String[] args) {
-        int year = 2024; // Замените на интересующий вас год
+        System.out.println(isLeapYear(0));
+    }
+        public static boolean isLeapYear(int year) {
 
-        boolean isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+            if (year > 0) {
 
-        if (isLeapYear) {
-            System.out.println(year + " - високосный год");
-        } else {
-            System.out.println(year + " - не високосный год");
+                return year % 4 == 0;
+            }
+            return false;
         }
     }
-}
