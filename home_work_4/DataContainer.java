@@ -13,59 +13,47 @@ public class DataContainer<T extends Comparable<T>> {
     }
 
     public boolean delete(int index) {
-        if (index >= 0 && index < size) {
-            // Сдвигаем элементы справа от индекса на одну позицию влево
-            for (int i = index; i < size - 1; i++) {
+        if (index < data.length && index > -1) {
+            for (int i = index; i < data.length - 1; i++) {
+                T temp = data[i];
                 data[i] = data[i + 1];
+                data[i + 1] = temp;
             }
-            data[size - 1] = null; // Удаляем последний элемент
-            size--;
+            data = Arrays.copyOf(data, data.length - 1);
             return true;
         }
-        return false; // Возвращаем false, если индекс недопустим
+        return false;
     }
 
     public boolean delete(T item) {
         if (item == null) {
             return false;
         }
-
-        for (int i = 0; i < size; i++) {
+        int i = 0;
+        while (i < data.length) {
             if (item.equals(data[i])) {
-                for (int j = i; j < size - 1; j++) {
-                    data[j] = data[j + 1];
-                }
-                data[size - 1] = null;
-                size--;
-                return true;
+                return delete(i);
             }
+            i++;
         }
-
         return false;
     }
 
 
     public int add(T item) {
-        if (item == null) {
-            return -1; // Вставка null не допускается
-        }
-        if (size < data.length) {
-            for (int i = size - 1; i >= 0; i--) {
-                if (data[i] != null) {
-                    data[i + 1] = item;
-                    size++;
-                    return i + 1;
+        if (item != null) {
+            for (int i = 0; i < data.length; i++) {
+                if (data[i] == null) {
+                    data[i] = item;
+                    return i;
                 }
             }
+            data = Arrays.copyOf(data, data.length + 1);
+            data[data.length - 1] = item;
+            return data.length - 1;
         } else {
-            data = Arrays.copyOf(data, data.length * 2);
-            data[size] = item;
-            size++;
-            return size - 1;
+            return -1;
         }
-        data[0] = item;
-        size++;
-        return 0;
     }
 
     private int findEmptyIndex() {
@@ -126,14 +114,14 @@ public class DataContainer<T extends Comparable<T>> {
 
 
     public T get(int index) {
-        if (index >= 0 && index < size()) {
-            return data[index];
+        if (index < 0 || index > data.length - 1) {
+            return null;
         }
-        return null;
+        return data[index];
     }
 
     public T[] getItems() {
-        return Arrays.copyOf(data, size);
+        return data;
     }
 
     public int size() {
@@ -141,22 +129,23 @@ public class DataContainer<T extends Comparable<T>> {
     }
 
 
+    @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("[");
-        boolean firstElement = true; // Флаг для отслеживания первого элемента
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append("[");
+        boolean comma = false;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < data.length; i++) {
             if (data[i] != null) {
-                if (!firstElement) {
-                    result.append(", ");
+                if (comma) {
+                    strBuilder.append(", ");
                 }
-                result.append(data[i].toString());
-                firstElement = false;
+                strBuilder.append(data[i]);
+                comma = true;
             }
         }
-
-        result.append("]");
-        return result.toString();
+        strBuilder.append("]");
+        return strBuilder.toString();
     }
 
     private static class ComparableComaparator implements Comparator<Comparable> {

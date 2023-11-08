@@ -2,35 +2,31 @@ package home_work_2.Cycle;
 
 public class LongOverflowExample {
     public static void main(String[] args) {
-        long a = 1;
-
-        // Множители
-        long[] multipliers = {3, 188, -19, 2, 7}; // Добавьте любые другие множители, которые вы хотите проверить
-
-        for (long multiplier : multipliers) {
-            System.out.println("Умножение на " + multiplier + ":");
-
-            long resultBeforeOverflow = a;
-            long resultAfterOverflow = a;
-
+        System.out.println(multiplyUntilOverflow(1,3));
+    }
+        public static long multiplyUntilOverflow (long a, int multiplier){
+            long result = a;
+            long previousResult = a;
             boolean overflowOccurred = false;
+            int iteration = 0;
 
             while (!overflowOccurred) {
-                resultBeforeOverflow = resultAfterOverflow;
-                resultAfterOverflow = resultAfterOverflow * multiplier;
+                previousResult = result;
+                result *= multiplier;
 
-                // Проверяем, произошло ли переполнение
-                if (resultBeforeOverflow > resultAfterOverflow) {
+                if (result < previousResult) {
                     overflowOccurred = true;
                 } else {
-                    System.out.println(resultAfterOverflow);
+                    iteration++;
                 }
             }
 
-            System.out.println("Значение до переполнения: " + resultBeforeOverflow);
-            System.out.println("Значение после переполнения: " + resultAfterOverflow);
+            System.out.println("Умножение на " + multiplier + ":");
+            System.out.println("Значение до переполнения: " + previousResult);
+            System.out.println("Значение после переполнения: " + result);
+            System.out.println("Количество итераций: " + iteration);
             System.out.println();
+            return result;
         }
     }
-}
 

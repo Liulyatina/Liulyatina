@@ -21,15 +21,21 @@ public class ArraysTasks {
         return sum;
     }
 
+
     public static int maxOfEvenElements(int[] array) {
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < array.length; i += 2) {
-            if (array[i] > max) {
-                max = array[i];
+        int maxValue = 0;
+
+        for (int i = 0; i < array.length; i++) {
+
+            if ((i % 2 == 0) && array[i] > maxValue) {
+
+                maxValue = array[i];
             }
         }
-        return max;
+
+        return maxValue;
     }
+
 
     public static int[] findTwoSmallestElement(int[] array) {
         int[] result = new int[2];
@@ -41,18 +47,18 @@ public class ArraysTasks {
 
     public static int sumOfDigitsInArray(int[] array) {
         int sum = 0;
-        for (int num : array) {
-            num += sumOfDigit(num);
-        }
-        return sum;
-    }
 
-    private static int sumOfDigit(int num) {
-        int sum = 0;
-        while (num != 0) {
-            sum += num % 10;
-            num /= 10;
+        for (int i = 0; i < array.length; i++) {
+
+            int number = array[i];
+
+            while (number > 0) {
+
+                sum += number % 10;
+                number /= 10;
+            }
         }
+
         return sum;
     }
 }
