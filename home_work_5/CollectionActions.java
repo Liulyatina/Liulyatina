@@ -79,7 +79,6 @@ public class CollectionActions {
             }
         } else {
             for (T element : collection) {
-                // Ваш код для обработки каждого элемента
             }
         }
         long endTime = System.nanoTime();

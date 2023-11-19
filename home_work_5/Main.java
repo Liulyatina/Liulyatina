@@ -92,6 +92,9 @@ public class Main {
         Collections.sort(people, new PersonComparator.LengthPasswordAndNickComparator());
         System.out.println("Сортировка по длине пароля и по псевдониму " + people);
 
+        BubbleSort.customBubbleSort(people, new PersonComparator.LengthPasswordAndNickComparator());
+        System.out.println("Сортировка пузырьком по длине пароля и по псевдониму " + people);
+
         List<Animal> animal = new ArrayList<>();
 
         animal.add(new Animal(5, "Badi"));
@@ -99,10 +102,13 @@ public class Main {
         animal.add(new Animal(6, "Bear"));
 
         Collections.sort(animal, new AnimalComparator.ageCopmarator());
-        System.out.println("Сортировка по длине пароля " + animal);
+        System.out.println("Сортировка по возрасту " + animal);
 
         Collections.sort(animal, new AnimalComparator.agedAndNickCompatator());
-        System.out.println("Сортировка по длине пароля и по псевдониму " + animal);
+        System.out.println("Сортировка по возрасту и по псевдониму " + animal);
+
+        BubbleSort.customBubbleSort(animal, new AnimalComparator.agedAndNickCompatator());
+        System.out.println("Сортировка пузырьком по возрасту и по псевдониму " + people);
     }
 
     private static void createFileIfNotExists(String directory, String fileName) throws IOException {
