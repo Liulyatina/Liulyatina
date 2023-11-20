@@ -1,4 +1,4 @@
-package home_work_5.Person.PersonNick;
+package home_work_5.Person.PersonName;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -57,7 +57,7 @@ public class CollectionActions {
     }
 
     public static <T> void performAddAllOperation(Collection<T> collection, String collectionType) {
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
         Collection<T> newData = generateRandomData((Class<T>) collection.iterator().next().getClass(), 1_000_000);
 
         if (collectionType.equals("LinkedList") || collectionType.equals("ArrayList")) {
@@ -67,11 +67,11 @@ public class CollectionActions {
             collection.addAll(newData);
         }
 
-        long endTime = System.nanoTime();
+        long endTime = System.currentTimeMillis();
         printElapsedTime("Операция: Заполнение коллекции", startTime, endTime);
     }
     public static <T> void performIterationOperation(Collection<T> collection, String collectionType, boolean useIterator) {
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
         if (useIterator) {
             Iterator<T> iterator = collection.iterator();
             while (iterator.hasNext()) {
@@ -81,12 +81,12 @@ public class CollectionActions {
             for (T element : collection) {
             }
         }
-        long endTime = System.nanoTime();
+        long endTime = System.currentTimeMillis();
         printElapsedTime("Операция: Итерирование коллекции" + (useIterator ? " (iterator)" : " (не foreach)"), startTime, endTime);
     }
 
     public static <T> void performRemoveAllOperation(Collection<T> collection, String collectionType, boolean useIterator) {
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
         if (useIterator) {
             Iterator<T> iterator = collection.iterator();
             while (iterator.hasNext()) {
@@ -96,7 +96,7 @@ public class CollectionActions {
         } else {
             collection.clear();
         }
-        long endTime = System.nanoTime();
+        long endTime = System.currentTimeMillis();
         printElapsedTime("Операция: Удаление всех элементов коллекции" + (useIterator ? " (iterator)" : " (другой способ)"), startTime, endTime);
     }
 

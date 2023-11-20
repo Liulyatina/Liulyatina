@@ -1,4 +1,4 @@
-package home_work_5.Person.PersonNick;
+package home_work_5.Person.PersonName;
 
 import home_work_5.Person.Name.RandomStringGeneration;
 
