@@ -1,6 +1,6 @@
 package home_work_2_test.cycleTest;
 
-import home_work_2.Cycle.NumberMultiplier;
+import home_work_2.cycle.NumberMultiplier;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

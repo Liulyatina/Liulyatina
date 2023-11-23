@@ -1,18 +1,18 @@
 package home_work_5;
 
 
-import home_work_5.Animal.Animal;
-import home_work_5.Animal.AnimalComparator;
-import home_work_5.Animal.AnimalNick.FileRandomAnimalNick;
-import home_work_5.Animal.AnimalNick.RandomAnimalNick;
-import home_work_5.Animal.AnimalNick.RandomRussianStringForAnimalNick;
-import home_work_5.Animal.AnimalNick.RandomStringGenerationAnimalForAnimalNick;
-import home_work_5.Person.Name.FileRandomName;
-import home_work_5.Person.Name.RandomName;
-import home_work_5.Person.Name.RandomRussianString;
-import home_work_5.Person.Name.RandomStringGeneration;
-import home_work_5.Person.Person;
-import home_work_5.Person.PersonComparator;
+import home_work_5.animal.Animal;
+import home_work_5.animal.AnimalComparator;
+import home_work_5.animal.AnimalNick.FileRandomAnimalNick;
+import home_work_5.animal.AnimalNick.RandomAnimalNick;
+import home_work_5.animal.AnimalNick.RandomRussianStringForAnimalNick;
+import home_work_5.animal.AnimalNick.RandomStringGenerationAnimalForAnimalNick;
+import home_work_5.person.Name.FileRandomName;
+import home_work_5.person.Name.RandomName;
+import home_work_5.person.Name.RandomRussianString;
+import home_work_5.person.Name.RandomStringGeneration;
+import home_work_5.person.Person;
+import home_work_5.person.PersonComparator;
 
 import java.io.IOException;
 import java.nio.file.Files;

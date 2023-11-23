@@ -1,6 +1,6 @@
 package home_work_2_test.cycleTest;
 
-import home_work_2.Cycle.Exponentiation;
+import home_work_2.cycle.Exponentiation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

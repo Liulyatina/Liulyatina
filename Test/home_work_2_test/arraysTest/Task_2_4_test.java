@@ -1,6 +1,6 @@
 package home_work_2_test.arraysTest;
 
-import home_work_2.Arrays.ArraysTasks;
+import home_work_2.arrays.ArraysTasks;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

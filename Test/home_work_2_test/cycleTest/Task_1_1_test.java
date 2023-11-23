@@ -1,7 +1,7 @@
 package home_work_2_test.cycleTest;
 
-import home_work_2.Cycle.MultiplyDigits;
-import home_work_2.Cycle.MultiplyNumbersWithRecursion;
+import home_work_2.cycle.MultiplyDigits;
+import home_work_2.cycle.MultiplyNumbersWithRecursion;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

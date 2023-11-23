@@ -1,6 +1,6 @@
 package home_work_2_test.cycleTest;
 
-import home_work_2.Cycle.LongOverflowExample;
+import home_work_2.cycle.LongOverflowExample;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

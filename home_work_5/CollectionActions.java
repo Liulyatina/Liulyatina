@@ -1,8 +1,8 @@
 package home_work_5;
 
-import home_work_5.Animal.Animal;
-import home_work_5.Person.Name.RandomStringGeneration;
-import home_work_5.Person.Person;
+import home_work_5.animal.Animal;
+import home_work_5.person.Name.RandomStringGeneration;
+import home_work_5.person.Person;
 
 import java.util.*;
 
