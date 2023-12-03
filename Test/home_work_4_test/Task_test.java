@@ -33,20 +33,20 @@ public class Task_test {
     public void testAdd() {
         DataContainer<Integer> container = new DataContainer<>(new Integer[0]);
 
-        int position = container.add(777);
+        int position = container.add(333);
         assertEquals(0, position);
         assertEquals(1, container.getItems().length);
-        assertArrayEquals(new Integer[]{777}, container.getItems());
+        assertArrayEquals(new Integer[]{333}, container.getItems());
 
         position = container.add(null);
         assertEquals(-1, position);
         assertEquals(1, container.getItems().length);
-        assertArrayEquals(new Integer[]{777}, container.getItems());
+        assertArrayEquals(new Integer[]{333}, container.getItems());
 
         position = container.add(345);
         assertEquals(1, position);
         assertEquals(2, container.getItems().length);
-        assertArrayEquals(new Integer[]{777, 345}, container.getItems());
+        assertArrayEquals(new Integer[]{333, 345}, container.getItems());
 
         container = new DataContainer<>(new Integer[2]);
 
@@ -72,47 +72,47 @@ public class Task_test {
 
         container = new DataContainer<>(new Integer[]{1, null, 3, null, null});
 
-        position = container.add(777);
+        position = container.add(333);
         assertEquals(1, position);
         assertEquals(5, container.getItems().length);
-        assertArrayEquals(new Integer[]{1, 777, 3, null, null}, container.getItems());
+        assertArrayEquals(new Integer[]{1, 333, 3, null, null}, container.getItems());
 
         position = container.add(null);
         assertEquals(-1, position);
         assertEquals(5, container.getItems().length);
-        assertArrayEquals(new Integer[]{1, 777, 3, null, null}, container.getItems());
+        assertArrayEquals(new Integer[]{1, 333, 3, null, null}, container.getItems());
 
         position = container.add(123);
         assertEquals(3, position);
         assertEquals(5, container.getItems().length);
-        assertArrayEquals(new Integer[]{1, 777, 3, 123, null}, container.getItems());
+        assertArrayEquals(new Integer[]{1, 333, 3, 123, null}, container.getItems());
 
         position = container.add(345);
         assertEquals(4, position);
         assertEquals(5, container.getItems().length);
-        assertArrayEquals(new Integer[]{1, 777, 3, 123, 345}, container.getItems());
+        assertArrayEquals(new Integer[]{1, 333, 3, 123, 345}, container.getItems());
 
         container = new DataContainer<>(new Integer[]{1, 2, 3, null, null, null});
 
-        position = container.add(777);
+        position = container.add(333);
         assertEquals(3, position);
         assertEquals(6, container.getItems().length);
-        assertArrayEquals(new Integer[]{1, 2, 3, 777, null, null}, container.getItems());
+        assertArrayEquals(new Integer[]{1, 2, 3, 333, null, null}, container.getItems());
 
         position = container.add(null);
         assertEquals(-1, position);
         assertEquals(6, container.getItems().length);
-        assertArrayEquals(new Integer[]{1, 2, 3, 777, null, null}, container.getItems());
+        assertArrayEquals(new Integer[]{1, 2, 3, 333, null, null}, container.getItems());
 
         position = container.add(345);
         assertEquals(4, position);
         assertEquals(6, container.getItems().length);
-        assertArrayEquals(new Integer[]{1, 2, 3, 777, 345, null}, container.getItems());
+        assertArrayEquals(new Integer[]{1, 2, 3, 333, 345, null}, container.getItems());
 
         position = container.add(567);
         assertEquals(5, position);
         assertEquals(6, container.getItems().length);
-        assertArrayEquals(new Integer[]{1, 2, 3, 777, 345, 567}, container.getItems());
+        assertArrayEquals(new Integer[]{1, 2, 3, 333, 345, 567}, container.getItems());
     }
 
     @Test
