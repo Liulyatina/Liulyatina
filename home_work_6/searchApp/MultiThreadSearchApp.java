@@ -14,7 +14,11 @@ import java.util.concurrent.*;
 public class MultiThreadSearchApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<File> textFiles = getTextFiles("/Users/romamihalevic/IdeaProjects/Home_work/src/Books");
+
+        System.out.println("Введите путь к директории: ");
+        String directoryPath = scanner.nextLine();
+
+        List<File> textFiles = getTextFiles(directoryPath);
         if (textFiles.isEmpty()) {
             System.out.println("По указанному пути нет текстовых файлов");
             return;

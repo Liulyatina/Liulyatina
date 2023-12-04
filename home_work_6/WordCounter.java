@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class WorldCounter {
+public class WordCounter {
     public static void main(String[] args) {
 
         Set<String> wordCount = new HashSet<>();

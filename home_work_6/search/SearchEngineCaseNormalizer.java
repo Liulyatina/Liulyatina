@@ -15,7 +15,6 @@ public class SearchEngineCaseNormalizer implements ISearchEngine {
 
     @Override
     public long search(String text, String word) {
-        // Приведение всех слов к единому падежу
         text = text.toLowerCase();
         word = word.toLowerCase();
         return searchEngine.search(text, word);
