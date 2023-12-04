@@ -1,4 +1,4 @@
-package home_work_6_test;
+package Test.home_work_6_test;
 
 import home_work_6.ISearchEngine;
 import home_work_6.search.EasySearch;

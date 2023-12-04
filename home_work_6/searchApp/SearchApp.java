@@ -6,6 +6,8 @@ import home_work_6.search.SearchEnginePunctuationNormalizer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class SearchApp {
@@ -18,7 +20,7 @@ public class SearchApp {
         }
 
         Map<String, Integer> resultMap = new HashMap<>();
-        ISearchEngine punctuationNormalize = new SearchEnginePunctuationNormalizer(new RegExSearch());
+        ISearchEngine searchEngine = new SearchEnginePunctuationNormalizer(new RegExSearch());
 
         while (true) {
             printFileList(textFiles);
@@ -29,12 +31,12 @@ public class SearchApp {
                 break;
             }
 
-            processFile(textFiles, resultMap, punctuationNormalize, userInput, scanner);
+            processFile(textFiles, resultMap, searchEngine, userInput, scanner);
         }
     }
 
-    private static void processFile(List<File> textFiles, Map<String, Integer> resultMap,
-                                    ISearchEngine punctuationNormalize, String userInput, Scanner scanner) {
+    public static void processFile(List<File> textFiles, Map<String, Integer> resultMap,
+                                   ISearchEngine searchEngine, String userInput, Scanner scanner) {
         try {
             int fileIndex = Integer.parseInt(userInput) - 1;
             File selectedFile = textFiles.get(fileIndex);
@@ -48,7 +50,7 @@ public class SearchApp {
                     break;  // Возврат к списку файлов
                 }
 
-                long wordCount = punctuationNormalize.search(getFileContent(selectedFile), searchWord);
+                long wordCount = searchEngine.search(getFileContent(selectedFile), searchWord);
                 String key = String.format("%s - %s", selectedFile.getName(), searchWord);
                 resultMap.put(key, (int) wordCount);
                 System.out.println("Результат поиска: " + wordCount);
@@ -59,20 +61,20 @@ public class SearchApp {
         }
     }
 
-    private static void printFileList(List<File> textFiles) {
+    static void printFileList(List<File> textFiles) {
         System.out.println("Список файлов: ");
         for (int i = 0; i < textFiles.size(); i++) {
             System.out.println((i + 1) + "." + textFiles.get(i).getName());
         }
     }
 
-    private static List<File> getTextFiles(String directoryPath) {
+    public static List<File> getTextFiles(String directoryPath) {
         File directory = new File(directoryPath);
         File[] files = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
         return files != null ? Arrays.asList(files) : Collections.emptyList();
     }
 
-    private static String getFileContent(File file) {
+    static String getFileContent(File file) {
         try (Scanner fileScanner = new Scanner(file)) {
             StringBuilder content = new StringBuilder();
             while (fileScanner.hasNextLine()) {
@@ -82,6 +84,15 @@ public class SearchApp {
         } catch (FileNotFoundException e) {
             System.out.println("Ошибка: файл не найден");
             return "";
+        }
+    }
+    public static void writeResultsToFile(Map<String, Integer> resultMap, String filePath) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (Map.Entry<String, Integer> entry : resultMap.entrySet()) {
+                writer.write(entry.getKey() + " - " + entry.getValue() + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

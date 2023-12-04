@@ -1,4 +1,4 @@
-package home_work_1_test;
+package Test.home_work_1_test;
 
 import home_work_1.checker.DivisibilityChecker;
 import org.junit.jupiter.api.Assertions;

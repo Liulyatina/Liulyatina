@@ -1,4 +1,4 @@
-package home_work_4_test;
+package Test.home_work_4_test;
 
 import home_work_4.DataContainer;
 import home_work_4.IntegerComparator;

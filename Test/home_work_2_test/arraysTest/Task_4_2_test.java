@@ -1,4 +1,4 @@
-package home_work_2_test.arraysTest;
+package Test.home_work_2_test.arraysTest;
 
 import home_work_2.arrays.SortsUtils;
 import org.junit.jupiter.api.Test;
