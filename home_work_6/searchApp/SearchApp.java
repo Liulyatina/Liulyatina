@@ -1,8 +1,8 @@
 package home_work_6.searchApp;
 
 import home_work_6.ISearchEngine;
-import home_work_6.search.RegExSearch;
-import home_work_6.search.SearchEnginePunctuationNormalizer;
+import home_work_6.search.EasySearch;
+import home_work_6.search.SearchEngineCaseInsensitive;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ import java.util.*;
 public class SearchApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+///Users/romamihalevic/IdeaProjects/Home_work/src/Books
         System.out.println("Введите путь к директории: ");
         String directoryPath = scanner.nextLine();
 
@@ -24,7 +24,7 @@ public class SearchApp {
         }
 
         Map<String, Integer> resultMap = new HashMap<>();
-        ISearchEngine searchEngine = new SearchEnginePunctuationNormalizer(new RegExSearch());
+        ISearchEngine searchEngine = new SearchEngineCaseInsensitive(new EasySearch());
 
         while (true) {
             printFileList(textFiles);

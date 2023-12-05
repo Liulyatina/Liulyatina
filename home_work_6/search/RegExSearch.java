@@ -12,8 +12,30 @@ public class RegExSearch implements ISearchEngine {
         if (word.isEmpty()) {
             return 0;
         }
-        // Используем символьные классы Unicode для поддержки русских букв
-        Pattern pattern = Pattern.compile("\\b" + word + "\\b", Pattern.UNICODE_CHARACTER_CLASS);
+
+        Pattern pattern = Pattern.compile("(" +
+                "(?<=[^-\\w]-+)" +
+                "|" +
+                "(?<=\\s-{1,})" +
+                "|" +
+                "(?<=^-{1,})" +
+                "|" +
+                "(?<=\\s)" +
+                "|" +
+                "(?<![\\w-])" +
+                ")" +
+                word +
+                "(" +
+                "(?=-+[^-\\w])" +
+                "|" +
+                "(?=-{1,}\\s)" +
+                "|" +
+                "(?=-{1,}$)" +
+                "| " +
+                "(?=\\s) " +
+                "|" +
+                "(?![\\w-])" +
+                ")", Pattern.UNICODE_CHARACTER_CLASS);
         Matcher matcher = pattern.matcher(text);
 
         long count = 0;

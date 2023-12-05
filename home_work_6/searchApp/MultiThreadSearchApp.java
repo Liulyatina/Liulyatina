@@ -1,8 +1,8 @@
 package home_work_6.searchApp;
 
 import home_work_6.ISearchEngine;
-import home_work_6.search.RegExSearch;
-import home_work_6.search.SearchEnginePunctuationNormalizer;
+import home_work_6.search.EasySearch;
+import home_work_6.search.SearchEngineCaseInsensitive;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import java.util.concurrent.*;
 public class MultiThreadSearchApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+///Users/romamihalevic/IdeaProjects/Home_work/src/Books
         System.out.println("Введите путь к директории: ");
         String directoryPath = scanner.nextLine();
 
@@ -25,7 +25,7 @@ public class MultiThreadSearchApp {
         }
 
         Map<String, Integer> resultMap = new ConcurrentHashMap<>();
-        ISearchEngine punctuationNormalize = new SearchEnginePunctuationNormalizer(new RegExSearch());
+        ISearchEngine caseInsensitive = new SearchEngineCaseInsensitive(new EasySearch());
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
         try {
@@ -38,7 +38,7 @@ public class MultiThreadSearchApp {
                     break;
                 }
 
-                processFiles(textFiles, resultMap, punctuationNormalize, searchWord, executorService);
+                processFiles(textFiles, resultMap, caseInsensitive, searchWord, executorService);
             }
         } finally {
             executorService.shutdown();
