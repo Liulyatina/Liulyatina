@@ -47,14 +47,14 @@ public class MultiThreadSearchApp {
     }
 
     public static void processFiles(List<File> textFiles, Map<String, Integer> resultMap,
-                                    ISearchEngine punctuationNormalize, String searchWord, ExecutorService executorService) {
+                                    ISearchEngine caseInsensitive, String searchWord, ExecutorService executorService) {
         List<Future<?>> futures = new ArrayList<>();
 
         for (File file : textFiles) {
             Callable<Void> task = () -> {
-                long wordCount = punctuationNormalize.search(getFileContent(file), searchWord);
+                long wordCount = caseInsensitive.search(getFileContent(file), searchWord);
                 String key = String.format("%s - %s - %d", file.getName(), searchWord, wordCount);
-                resultMap.put(key, (int) wordCount); // Приводим значение long к int
+                resultMap.put(key, (int) wordCount);
                 System.out.println(key);
                 return null;
             };
