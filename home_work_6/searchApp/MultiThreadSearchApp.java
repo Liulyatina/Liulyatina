@@ -4,17 +4,16 @@ import home_work_6.ISearchEngine;
 import home_work_6.search.EasySearch;
 import home_work_6.search.SearchEngineCaseInsensitive;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.*;
 
 public class MultiThreadSearchApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-///Users/romamihalevic/IdeaProjects/Home_work/src/Books
+        // /Users/romamihalevic/IdeaProjects/Home_work/src/Books
         System.out.println("Введите путь к директории: ");
         String directoryPath = scanner.nextLine();
 
@@ -46,30 +45,35 @@ public class MultiThreadSearchApp {
         }
     }
 
-    public static void processFiles(List<File> textFiles, Map<String, Integer> resultMap,
-                                    ISearchEngine caseInsensitive, String searchWord, ExecutorService executorService) {
-        List<Future<?>> futures = new ArrayList<>();
+    public static List<Future<Void>> processFiles(List<File> files, Map<String, Integer> resultMap, ISearchEngine searchEngine, String target, ExecutorService executorService) {
+        List<Future<Void>> futures = new ArrayList<>();
 
-        for (File file : textFiles) {
-            Callable<Void> task = () -> {
-                long wordCount = caseInsensitive.search(getFileContent(file), searchWord);
-                String key = String.format("%s - %s - %d", file.getName(), searchWord, wordCount);
-                resultMap.put(key, (int) wordCount);
-                System.out.println(key);
+        for (File file : files) {
+            futures.add(executorService.submit(() -> {
+                try {
+                    // Явно указываем кодировку (например, UTF-8)
+                    String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+                    int occurrences = (int) searchEngine.search(content, target);
+                    String key = file.getName() + " - " + target;
+                    resultMap.merge(key, occurrences, Integer::sum);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return null;
-            };
-
-            futures.add(executorService.submit(task));
+            }));
         }
 
-        for (Future<?> future : futures) {
+        // Ждем завершения всех задач
+        for (Future<Void> future : futures) {
             try {
                 future.get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
+        return futures;
     }
+
 
 
     static void printFileList(List<File> textFiles) {
@@ -85,18 +89,18 @@ public class MultiThreadSearchApp {
         return files != null ? Arrays.asList(files) : Collections.emptyList();
     }
 
-    static String getFileContent(File file) {
-        try (Scanner fileScanner = new Scanner(file)) {
-            StringBuilder content = new StringBuilder();
-            while (fileScanner.hasNextLine()) {
-                content.append(fileScanner.nextLine()).append("\n");
-            }
-            return content.toString();
-        } catch (FileNotFoundException e) {
-            System.out.println("Ошибка: файл не найден");
-            return "";
-        }
-    }
+//    static String getFileContent(File file) {
+//        try (Scanner fileScanner = new Scanner(file)) {
+//            StringBuilder content = new StringBuilder();
+//            while (fileScanner.hasNextLine()) {
+//                content.append(fileScanner.nextLine()).append("\n");
+//            }
+//            return content.toString();
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Ошибка: файл не найден");
+//            return "";
+//        }
+//    }
 
     public static void writeResultsToFile(Map<String, Integer> resultMap) {
         // Вывод результатов в консоль и запись в файл
@@ -104,7 +108,7 @@ public class MultiThreadSearchApp {
 
         try (PrintWriter writer = new PrintWriter(new FileWriter("result.txt", true))) {
             for (Map.Entry<String, Integer> entry : resultMap.entrySet()) {
-                String resultString = entry.getKey();
+                String resultString = entry.getKey() + " - " + entry.getValue();
                 System.out.println(resultString);
                 writer.println(resultString);
             }
@@ -112,4 +116,5 @@ public class MultiThreadSearchApp {
             e.printStackTrace();
         }
     }
+
 }
