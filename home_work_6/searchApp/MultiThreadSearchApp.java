@@ -25,7 +25,7 @@ public class MultiThreadSearchApp {
 
         Map<String, Integer> resultMap = new ConcurrentHashMap<>();
         ISearchEngine caseInsensitive = new SearchEngineCaseInsensitive(new EasySearch());
-        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()*2);
 
         try {
             while (true) {
