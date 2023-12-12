@@ -4,10 +4,8 @@ import home_work_6.ISearchEngine;
 import home_work_6.search.EasySearch;
 import home_work_6.search.SearchEngineCaseInsensitive;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class SearchApp {
@@ -80,7 +78,7 @@ public class SearchApp {
     }
 
     static String getFileContent(File file) {
-        try (Scanner fileScanner = new Scanner(file)) {
+        try (Scanner fileScanner = new Scanner(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
             StringBuilder content = new StringBuilder();
             while (fileScanner.hasNextLine()) {
                 content.append(fileScanner.nextLine()).append("\n");
@@ -92,7 +90,7 @@ public class SearchApp {
         }
     }
     public static void writeResultsToFile(Map<String, Integer> resultMap, String filePath) {
-        try (FileWriter writer = new FileWriter(filePath)) {
+        try (FileWriter writer = new FileWriter(filePath, StandardCharsets.UTF_8)) {
             for (Map.Entry<String, Integer> entry : resultMap.entrySet()) {
                 writer.write(entry.getKey() + " - " + entry.getValue() + "\n");
             }
